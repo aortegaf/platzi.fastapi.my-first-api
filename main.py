@@ -26,6 +26,12 @@ def message():
 def get_movies():
     return movies
 
+@app.get('/movies/', tags=["movies"])
+def get_movies_by_year(year: int):
+    for movie in movies:
+        if(movie["year"] == year):
+            return movie
+
 @app.get('/movies/{id}', tags=["movies"])
 def get_movie(id: int):
     for movie in movies:
