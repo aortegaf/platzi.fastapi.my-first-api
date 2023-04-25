@@ -49,6 +49,14 @@ def add_movie(movie: Movie):
     movies.append(movie)
     return movies
 
+@app.put('/movies', tags=["movies"])
+def update_movie(id: int, movie: Movie):
+    for m in movies:
+        if(m["id"] == id):
+            m["title"] = movie.title
+            m["year"] = movie.year
+    return movies
+
 
 
 
