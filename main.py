@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
@@ -7,10 +7,10 @@ app.title = "My FastAPI"
 app.version = "1.0"
 
 class Movie(BaseModel):
-    id: int
+    id: int = Field(ge=1, le=10)
     title: str = Field(max_length=20)
     year: int = Field(ge=2000)
-    
+
     class Config: 
         schema_extra = {
             "example": {
@@ -48,7 +48,7 @@ def get_movies_by_year(year: int):
             return m
 
 @app.get('/movies/{id}', tags=["movies"])
-def get_movie(id: int):
+def get_movie(id: int = Path(ge=1, le=10)):
     for m in movies:
         if(m["id"] == id):
             return m
