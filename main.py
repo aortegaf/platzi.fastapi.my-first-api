@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 app = FastAPI()
 app.title = "My FastAPI"
@@ -8,8 +8,17 @@ app.version = "1.0"
 
 class Movie(BaseModel):
     id: int
-    title: str
-    year: int
+    title: str = Field(max_length=20)
+    year: int = Field(ge=2000)
+    
+    class Config: 
+        schema_extra = {
+            "example": {
+                "id": 1,
+                "title": "Movie Title",
+                "year": 2000
+            }
+        }
 
 movies = [
     {
