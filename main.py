@@ -43,6 +43,11 @@ def get_movie(id: int):
     for movie in movies:
         if(movie["id"] == id):
             return movie
+        
+@app.post('/movies', tags=["movies"])
+def add_movie(movie: Movie):
+    movies.append(movie)
+    return movies
 
 
 
