@@ -1,11 +1,16 @@
 from fastapi import FastAPI, Path, Query
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 app = FastAPI()
+
+
+#config
 app.title = "My FastAPI"
 app.version = "1.0"
 
+
+#models
 class Movie(BaseModel):
     id: int = Field(ge=1, le=10)
     title: str = Field(max_length=20)
@@ -20,6 +25,8 @@ class Movie(BaseModel):
             }
         }
 
+
+#data
 movies = [
     {
         "id": 1,
@@ -33,6 +40,8 @@ movies = [
     }
 ]
 
+
+#main
 @app.get('/', tags=["home"])
 def message():
     return HTMLResponse('<h1>This is my first API with FastAPI</h1>')
