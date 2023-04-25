@@ -34,15 +34,15 @@ def get_movies():
 
 @app.get('/movies/', tags=["movies"])
 def get_movies_by_year(year: int):
-    for movie in movies:
-        if(movie["year"] == year):
-            return movie
+    for m in movies:
+        if(m["year"] == year):
+            return m
 
 @app.get('/movies/{id}', tags=["movies"])
 def get_movie(id: int):
-    for movie in movies:
-        if(movie["id"] == id):
-            return movie
+    for m in movies:
+        if(m["id"] == id):
+            return m
         
 @app.post('/movies', tags=["movies"])
 def add_movie(movie: Movie):
@@ -55,6 +55,13 @@ def update_movie(id: int, movie: Movie):
         if(m["id"] == id):
             m["title"] = movie.title
             m["year"] = movie.year
+    return movies
+
+@app.delete('/movies', tags=["movies"])
+def delete_movie(id: int):
+    for m in movies:
+        if(m["id"] == id):
+            movies.remove(m)
     return movies
 
 
