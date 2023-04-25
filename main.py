@@ -1,9 +1,15 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
 
 app = FastAPI()
 app.title = "My FastAPI"
 app.version = "1.0"
+
+class Movie(BaseModel):
+    id: int
+    title: str
+    year: int
 
 movies = [
     {
