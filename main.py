@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path
+from fastapi import FastAPI, Path, Query
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel, Field
 
@@ -42,7 +42,7 @@ def get_movies():
     return movies
 
 @app.get('/movies/', tags=["movies"])
-def get_movies_by_year(year: int):
+def get_movies_by_year(year: int = Query(ge=2000)):
     for m in movies:
         if(m["year"] == year):
             return m
