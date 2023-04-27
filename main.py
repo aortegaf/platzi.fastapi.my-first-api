@@ -48,24 +48,24 @@ def message():
 
 @app.get('/movies', tags=["movies"])
 def get_movies():
-    return movies
+    return JSONResponse(content=movies)
 
 @app.get('/movies/', tags=["movies"])
 def get_movies_by_year(year: int = Query(ge=2000)):
     for m in movies:
         if(m["year"] == year):
-            return m
+            return JSONResponse(content=m)
 
 @app.get('/movies/{id}', tags=["movies"])
 def get_movie(id: int = Path(ge=1, le=10)):
     for m in movies:
         if(m["id"] == id):
-            return m
+            return JSONResponse(content=m)
         
 @app.post('/movies', tags=["movies"])
 def add_movie(movie: Movie):
     movies.append(movie)
-    return movies
+    return JSONResponse(content={"message": "Movie succesfully created!"})
 
 @app.put('/movies', tags=["movies"])
 def update_movie(id: int, movie: Movie):
@@ -73,14 +73,14 @@ def update_movie(id: int, movie: Movie):
         if(m["id"] == id):
             m["title"] = movie.title
             m["year"] = movie.year
-    return movies
+    return JSONResponse(content={"message": "Movie succesfully updated!"})
 
 @app.delete('/movies', tags=["movies"])
 def delete_movie(id: int):
     for m in movies:
         if(m["id"] == id):
             movies.remove(m)
-    return movies
+    return JSONResponse(content={"message": "Movie succesfully deleted!"})
 
 
 
